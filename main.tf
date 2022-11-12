@@ -21,3 +21,12 @@ module "bootstrap" {
   name_of_s3_bucket    = "posmacktfb"
   dynamo_db_table_name = "aws-locks"
 }
+
+resource "aws_instance" "pos_server" {
+  ami           = "ami-0c4e4b4eb2e11d1d4"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "IntanciaPosMack"
+  }
+}

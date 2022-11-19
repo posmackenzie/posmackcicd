@@ -20,6 +20,7 @@ jobs:
       run: terraform --version
   
   terraform_init:
+    needs: terraform_install
     runs-on: ubuntu-latest
     steps:
     - name: Terraform init
@@ -29,18 +30,24 @@ jobs:
       run: terraform init -input=false
 
   terraform_validate:
+    if: ${{ always() }}
+    needs: [terraform_install, terraform_init]
     runs-on: ubuntu-latest
     steps:
     - name: Validacao Terraform 
       run: terraform validate
 
   terraform_plan:
+    if: ${{ always() }}
+    needs: [terraform_install, terraform_init]
     runs-on: ubuntu-latest
     steps:
     - name: Plano Terraform 
       run: terraform plan
 
-  terraform_apply:
+  terraform_apply:    
+    if: ${{ always() }}
+    needs: [terraform_install, terraform_init, terraform_plan]
     runs-on: ubuntu-latest
     steps:
     - name: Deploy Terraform

@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Plano Terraform 
-      run: terraform plan
+      run: terraform plan -no-color -input=false
 
   terraform_apply:    
     if: ${{ always() }}
